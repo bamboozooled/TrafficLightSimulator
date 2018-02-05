@@ -1,6 +1,6 @@
 # TrafficLightSimulator
 
-To start the simulator run Main.java in .\core and enter argument lowTraffic, moderateTraffic and highTraffic.
+To start the simulator run Main.java in .\core and enter argument lowTraffic or moderateTraffic or highTraffic.
 
 This is Documentation -- 
 
