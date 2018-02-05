@@ -1,0 +1,23 @@
+package SEG2106.core;
+
+public class Main {
+
+ public static void main(String [] args){
+  // get the singleton object of the traffic light manager
+  TrafficLightManager trafficLightManager = TrafficLightManager.getTrafficManager();
+  args = new String[1];
+  args[0] = "lowTraffic";
+  // Create the traffic light state machine
+    //TrafficLightX lights = new TrafficLightX();
+    //lights.setTrafficLightManager(trafficLightManager);
+    //Set the traffic condition
+  //LowTraffic main = new LowTraffic(trafficLightManager);
+  //main.start();
+  
+  LowTraffic lowLights = new LowTraffic();
+  lowLights.setTrafficLightManager(trafficLightManager);
+    //if (args.length > 0){
+      //trafficLightManager.setTrafficCondition(args[0]);
+  //}
+ }
+}

@@ -1,0 +1,113 @@
+package SEG2106.core;
+
+public class TrafficLightX extends TrafficLight implements EventHandler
+{
+
+  //------------------------
+  // MEMBER VARIABLES
+  //------------------------
+  private TrafficLightManager trafficLightManager; 
+  private int clk_tick_cnt;
+  private int[] clk_periods;
+
+
+  //------------------------
+  // CONSTRUCTOR
+  //------------------------
+  public TrafficLightX()
+  {
+    super();
+    clk_periods = new int[] {3,4,7,8};
+    //clk_periods = new int[] {3,4,1,2};
+    clk_tick_cnt = -1;
+  }
+
+  //------------------------
+  // INTERFACE
+  //------------------------
+  public void setTrafficLightManager(TrafficLightManager mgr){
+    System.out.println("setTrafficLightManager");
+    trafficLightManager = mgr;
+    trafficLightManager.addEventHandler(this);
+  }
+
+ public boolean timerEvent() {
+    if (clk_tick_cnt == -1) timerT0();
+    else if (clk_tick_cnt >= clk_periods[clk_periods.length -1]) clk_tick_cnt = 0;
+    clk_tick_cnt++;
+    System.out.println("clock tic " + getStatusFullName() + " " + clk_tick_cnt);
+    for (int i=0; i<clk_periods.length; i++){
+      if (clk_tick_cnt == clk_periods[i]) {
+        switch (i) {
+          case 0: timerT1(); break;
+          case 1: timerT2(); break;
+          case 2: timerT3(); break;
+          case 3: timerT4(); break;
+        }
+        break;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public boolean moderateTraffic() {
+    //setAllRed();
+    
+    return false;
+  }
+
+  @Override
+  public boolean lowTraffic() {
+    
+    //LowTraffic lowTraffic = new LowTraffic(trafficLightManager);
+    //lowTraffic.start();
+    return true;
+  }
+
+  @Override
+  public boolean highTraffic() {
+    // TODO
+    return false;
+  }
+  public void setAllRed(){
+    if (trafficLightManager != null) {
+      trafficLightManager.northRed();
+      trafficLightManager.southRed();
+      trafficLightManager.westRed();
+      trafficLightManager.eastRed();
+    }
+  }
+
+  // line 31 "model.ump"
+  public void setNS_Green(){
+    trafficLightManager.northGreen();
+    trafficLightManager.southGreen();
+    trafficLightManager.westRed();
+    trafficLightManager.eastRed();
+  }
+
+  // line 32 "model.ump"
+   public void setNS_Yellow(){
+    trafficLightManager.northYellow();
+    trafficLightManager.southYellow();
+    trafficLightManager.westRed();
+    trafficLightManager.eastRed();
+  }
+
+  // line 33 "model.ump"
+   public void setEW_Green(){
+    trafficLightManager.northRed();
+    trafficLightManager.southRed();
+    trafficLightManager.westGreen();
+    trafficLightManager.eastGreen();
+  }
+
+  // line 34 "model.ump"
+   public void setEW_Yellow(){
+    trafficLightManager.northRed();
+    trafficLightManager.southRed();
+    trafficLightManager.westYellow();
+    trafficLightManager.eastYellow();
+  }
+}
